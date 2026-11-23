@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Autorização TikTok · Publicador Renan Poiani</title><link rel="stylesheet" href="estilo.css"></head><body>
+<h1>Autorização do TikTok</h1>
+<div id="msg">Carregando...</div>
+<script>
+const p=new URLSearchParams(location.search), m=document.getElementById('msg');
+if(p.get('code')){
+  m.innerHTML='<p>Autorização recebida. Copie o código abaixo e cole no terminal do Publicador.</p><span class="caixa" id="c"></span><button id="b">Copiar código</button><p class="sub">Estado: <code id="s"></code></p>';
+  document.getElementById('c').textContent=p.get('code');
+  document.getElementById('s').textContent=p.get('state')||'-';
+  document.getElementById('b').onclick=()=>{navigator.clipboard.writeText(p.get('code'));document.getElementById('b').textContent='Copiado';};
+}else if(p.get('error')){
+  m.innerHTML='<p>A autorização não foi concluída.</p><span class="caixa" id="e"></span>';
+  document.getElementById('e').textContent=(p.get('error')||'')+' '+(p.get('error_description')||'');
+}else{m.innerHTML='<p>Esta página recebe o retorno do login do TikTok para o Publicador Renan Poiani. Nada para fazer aqui.</p><p><a href="index.html">Início</a></p>';}
+</script>
+</body></html>
